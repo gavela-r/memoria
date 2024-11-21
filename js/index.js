@@ -22,10 +22,7 @@ contenedor.addEventListener('click', (e)=>{
             
             e.target.classList.remove('invisible'); 
              e.target.classList.add('activa');
-             let t= setInterval(()=>{
-                                    
-                                    clearInterval(t);
-                                },1000);
+             
         
                 for(let k = 0; k < iconos.length; k++){
                     //alert(e.target.firstElementChild.classList[2]);
@@ -46,7 +43,7 @@ contenedor.addEventListener('click', (e)=>{
                 }
                 if(!e.target.classList.contains('completa')){
 
-/*
+
                         for(let w = 0; w < animales.length; w++){
                             // console.log(animales);
 
@@ -62,8 +59,8 @@ contenedor.addEventListener('click', (e)=>{
 
                         }
                         e.target.classList.add('invisible');
-                        e.target.classList.remove('activa');
-  */              }            
+                         e.target.classList.remove('activa');
+               }            
                        
 
            
