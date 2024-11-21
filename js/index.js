@@ -6,32 +6,42 @@ let reinicio = document.getElementById('reiniciar');
 let contador = 0;
 
 contenedor.addEventListener('click', (e)=>{
+    // aqui se comprueba que se selecciona la casilla
     if(e.target.classList.contains('animal')){
-        // aqui se comprueba que se selecciona la casilla
-        e.target.classList.add('activa');
-        // estoy pensando en hacer un bucle para recorrer todas las casillas con el if dentro de el algo asi:
-        for(let i = 0; i < animales.length; i++){
-            if(e.target.classList.contains('activa')){
-                contador++;    
-            }
-            if(contador == 2){
-                e.target.classList.remove('invisible');
-            }
-            if(e.target.classList.contains('animal') != e.target.classList.contains('animal')){
-                e.target.classList.remove('activa')
+        // Comprobamos que no se hayan seleccionado mas de dos casillas, si no es asi hacemos lo siguiente:
+        if(contador < 1){
+            e.target.classList.add('activa');
+            e.target.classList.toggle('invisible');
+            contador++;  
+        }else{
+        // Si se ha seleccionado una segunda casilla vamos a hacer que se quiten despues de cierto tiempo, 
+        // siempre y cuando contengan las casillas la clase activa
+            e.target.classList.add('activa');
+            e.target.classList.toggle('invisible');
+
+            for(let i = 0; i < animales.length; i++){
+                
+                if(animales[i].classList.contains('activa')){
+                    // se quitan los animales despues de un segundo y se resetea el contador
+                    let tiempo = setInterval(()=>{
+                        animales[i].classList.remove('activa')
+                        animales[i].classList.add('invisible')
+                        clearInterval(tiempo);
+                    },1000)
+                    contador = 0;
+                    
+                    // Prueba medio fallida --->
+                    // if(e.target.firstElementChild.classList[2] == animales[i].firstElementChild.classList[2]){
+                    //     animales[i].classList.remove('activa')
+                    // }else{
+                    // } <----
+                }
+                
             }
         }
-        
-        e.target.classList.remove('invisible')
+    console.log(e.target.firstElementChild.classList[2]);        
     }
-    // okey pues ya mañana le damos mas
     
-    // if(e.target.classList.contains('perro'))??¿?? y asi con cada una, es un poco suicidio no?
-    //si 
-    //me esta dando error al subirlo 
-    //sabes que le pasa?
-    // que igual hay algo diferente o nose ahora copia los archivos a otra carpeta, borralos y haz git pull y despes pega lo que hemos hecho porque alguno por algo da fallo xD
-    //vaLE JAJAJA
 })
 
 reinicio.addEventListener('click', (e)=>{
