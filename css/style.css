@@ -60,7 +60,7 @@ h1{
     justify-content: center;
     align-items: center;
     font-size: 35px;
-    
+    padding-top: 25%;
 }
 
 @media screen and (min-width: 1900px) and (max-width: 2000px){
