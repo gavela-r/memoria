@@ -9,7 +9,7 @@ contenedor.addEventListener('click', (e)=>{
         animal.push(animales[i].firstElementChild);
     }
     
-    animal = desordenar(animal) 
+    desordenar(animal) 
     console.log(animal);
 // ahora toca guardar tu xD, si quieres en casa lo miro y dejo hecho el random que creo que no quedo del todo
    //pero si lo esta haciendo aleatoriamente pero vale si ves que esta mal adelante 
@@ -17,5 +17,8 @@ contenedor.addEventListener('click', (e)=>{
 
 
 function desordenar(animales){
-    animales.sort(function(a,b) {return Math.floor(Math.random() - 0.5)});
+    for(let i = animales.length-1; i > 0; i--){
+        let j = Math.floor(Math.random() * (i+1));
+        [animales[i], animales[j]] = [animales[j], animales[i]]
+    }
 }
