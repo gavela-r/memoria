@@ -20,55 +20,45 @@ contenedor.addEventListener('click', (e)=>{
         // Si se ha seleccionado una segunda casilla vamos a hacer que se quiten despues de cierto tiempo, 
         // siempre y cuando contengan las casillas la clase activa
             
-            e.target.classList.remove('invisible'); 
-             e.target.classList.add('activa');
-             
-        
-                for(let k = 0; k < iconos.length; k++){
-                    //alert(e.target.firstElementChild.classList[2]);
-                    // console.log(e);
-                    // alert(iconos[k].classList[2]);
-                     //alert(animales[k].classList);
-                    if(e.target.firstElementChild.classList[2] == iconos[k].classList[2] && animales[k].classList.contains('tocada')){
-                        alert("Somos iguales");
-                        console.log("somos iguales");
-                        e.target.classList.add('completa');
-                        animales[k].classList.add('completa');
-                           e.target.classList.remove('activa');
-                        animales[k].classList.remove('activa');
-                        animales[k].classList.remove('tocada');
-                        contador=0;
-                        break;
-                    }
+            e.target.classList.toggle('invisible'); 
+            e.target.classList.add('activa');
+            console.log(contador);
+            for(let k = 0; k < iconos.length; k++){
+                //alert(e.target.firstElementChild.classList[2]);
+                // console.log(e);
+                // alert(iconos[k].classList[2]);
+                    //alert(animales[k].classList);
+                if(e.target.firstElementChild.classList[2] == iconos[k].classList[2] && animales[k].classList.contains('tocada')){
+                    e.target.classList.add('completa');
+                    animales[k].classList.add('completa');
+                    e.target.classList.remove('activa');
+                    animales[k].classList.remove('activa');
+                    animales[k].classList.remove('tocada');
+                    contador=0;
+                    break;
+                }else{
+                    
                 }
-                if(!e.target.classList.contains('completa')){
+            }
+            if(!e.target.classList.contains('completa')){
+                console.log('hi');
+                for(let w = 0; w < animales.length; w++){
+                    // console.log(animales);
+                    if(animales[w].classList.contains('tocada')){
+                        let tiempo = setInterval(()=>{
+                            animales[w].classList.add('invisible');
+                            animales[w].classList.remove('activa');
+                            animales[w].classList.remove('tocada');
+                            clearInterval(tiempo);
+                            e.target.classList.add('invisible');
+                            e.target.classList.remove('activa');
+                        },1000);
+                        contador = 0;
+                    }
 
-
-                        for(let w = 0; w < animales.length; w++){
-                            // console.log(animales);
-
-                            if(animales[w].classList.contains('tocada')){
-                                let tiempo = setInterval(()=>{
-                                    animales[w].classList.add('invisible');
-                                    animales[w].classList.remove('activa');
-                                    animales[w].classList.remove('tocada');
-                                    clearInterval(tiempo);
-                                },1000);
-                                contador = 0;
-                            }
-
-                        }
-                        e.target.classList.add('invisible');
-                         e.target.classList.remove('activa');
-               }            
-                       
-
-           
-
-           
+                }
+            }            
         }
-
-       
     }
 })
 
