@@ -7,6 +7,8 @@ let iconos = document.querySelectorAll('.fa-solid');
 
 let contador = 0;
 
+// window.addEventListener('DOMContentLoaded', render());
+
 contenedor.addEventListener('click', (e)=>{
     // aqui se comprueba que se selecciona la casilla
     if(e.target.classList.contains('animal')){
@@ -22,12 +24,9 @@ contenedor.addEventListener('click', (e)=>{
             
             e.target.classList.toggle('invisible'); 
             e.target.classList.add('activa');
-            console.log(contador);
+
             for(let k = 0; k < iconos.length; k++){
-                //alert(e.target.firstElementChild.classList[2]);
-                // console.log(e);
-                // alert(iconos[k].classList[2]);
-                    //alert(animales[k].classList);
+                
                 if(e.target.firstElementChild.classList[2] == iconos[k].classList[2] && animales[k].classList.contains('tocada')){
                     e.target.classList.add('completa');
                     animales[k].classList.add('completa');
@@ -40,10 +39,9 @@ contenedor.addEventListener('click', (e)=>{
                     
                 }
             }
+            
             if(!e.target.classList.contains('completa')){
-                console.log('hi');
                 for(let w = 0; w < animales.length; w++){
-                    // console.log(animales);
                     if(animales[w].classList.contains('tocada')){
                         let tiempo = setInterval(()=>{
                             animales[w].classList.add('invisible');
@@ -64,15 +62,8 @@ contenedor.addEventListener('click', (e)=>{
 
 reinicio.addEventListener('click', (e)=>{
     e.preventDefault();
-    let animal = [];
     
-    for(let i = 0; i < animales.length; i++){
-        animal.push(animales[i].firstElementChild);
-    }
-    desordenar(animal);
-
-   
-    
+    render()
 })
 
 function desordenar(animales){
@@ -83,7 +74,37 @@ function desordenar(animales){
     
 }
 
+function render(){
+    let animal = [];
+    
+    for(let i = 0; i < animales.length; i++){
+        animal.push(animales[i].firstElementChild);
+        
+    }
+    
+    
+    desordenar(animal);
+    
+    console.log(animal);
+    
+    for(let i = 0; i < animales.length; i++){
+        // console.log(animales[i]);
+        // animales[i].firstElementChild.remove()
+        animales[i].appendChild(animal[i])
+        console.log(animales[i].firstElementChild);
+        
+        //tio a ti a veces clicas y no te aparece nada?
+        //vava, voy a comer que si no no llego a clase 
+        //dale 
+        // pues lo subo y nos vemos en clase
+    }
+    console.log(animales);
+}
+render();
+// 
 // function partida(jugador1, jugador2){
+
+
 //     // if(e.target.className == 'animal'){
 //     //     // aqui se comprueba que se selecciona la casilla
               
