@@ -18,16 +18,17 @@ contenedor.addEventListener('click', (e)=>{
             e.target.classList.add('tocada');
             e.target.classList.toggle('invisible');
             contador++; 
+            console.log(e.target.firstElementChild.classList[2]);
         }else{
         // Si se ha seleccionado una segunda casilla vamos a hacer que se quiten despues de cierto tiempo, 
         // siempre y cuando contengan las casillas la clase activa
             
             e.target.classList.toggle('invisible'); 
             e.target.classList.add('activa');
-
             for(let k = 0; k < iconos.length; k++){
-                
-                if(e.target.firstElementChild.classList[2] == iconos[k].classList[2] && animales[k].classList.contains('tocada')){
+                // && animales[k].classList.contains('tocada')
+                if(e.target.firstElementChild.classList[2] === iconos[k].classList[2] ){
+                    console.log(e.target.firstElementChild.classList[2], iconos[k].classList[2]);
                     e.target.classList.add('completa');
                     animales[k].classList.add('completa');
                     e.target.classList.remove('activa');
@@ -35,8 +36,6 @@ contenedor.addEventListener('click', (e)=>{
                     animales[k].classList.remove('tocada');
                     contador=0;
                     break;
-                }else{
-                    
                 }
             }
             
@@ -79,27 +78,16 @@ function render(){
     
     for(let i = 0; i < animales.length; i++){
         animal.push(animales[i].firstElementChild);
-        
     }
-    
-    
     desordenar(animal);
-    
-    console.log(animal);
-    
+
     for(let i = 0; i < animales.length; i++){
-        // console.log(animales[i]);
         // animales[i].firstElementChild.remove()
         animales[i].appendChild(animal[i])
-        console.log(animales[i].firstElementChild);
-        
-        //tio a ti a veces clicas y no te aparece nada?
-        //vava, voy a comer que si no no llego a clase 
-        //dale 
-        // pues lo subo y nos vemos en clase
     }
     console.log(animales);
 }
+
 render();
 // 
 // function partida(jugador1, jugador2){
