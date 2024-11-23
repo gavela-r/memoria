@@ -91,6 +91,7 @@ contenedor.addEventListener('click', (e)=>{
 
 reinicio.addEventListener('click', (e)=>{
     render()
+    partida();
 })
 
 window.addEventListener('keypress', (e)=>{
@@ -111,7 +112,7 @@ function render(){
     if(numeroAleatorio > 5){
         comentario.innerHTML = `Empieza jugando el Jugador 1`;
     }else{
-        comentario.innerHTML = `Empieza jugando el jugador 2`;
+        comentario.innerHTML = `Empieza jugando el Jugador 2`;
     }
     let animal = [];
     
@@ -123,6 +124,10 @@ function render(){
     for(let i = 0; i < animales.length; i++){
         animales[i].appendChild(animal[i]);
         animales[i].classList.add('invisible');
+        animales[i].classList.remove('correcta');
+        animales[i].classList.remove('tocada');
+        animales[i].classList.remove('activa');
+        animales[i].classList.remove('completa');
     }
 }
 
@@ -136,8 +141,7 @@ function partida(){
         }
     }
     if(completo){
-        contenedor.classList.add('ganador')
-        document.createElement('p').append('body').innerHTML = 'GANDOR PUTO'
+        comentario.innerHTML = 'Ganador';
     }
     
 }

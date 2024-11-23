@@ -51,8 +51,9 @@ h1{
 .invisible{
     opacity: 0;
 }
-.ganador{
-    display: none;
+#comentario{
+    
+    text-align: center;
 }
 #reiniciar{
     background-color: aqua;
