@@ -7,6 +7,7 @@ let iconos = document.querySelectorAll('.fa-solid');
 let contador = 0;
 let primeraCarta;
 let comentario = document.getElementById('comentario');
+
 const keyframeCorrecto = [
     {borderRadius: '15px'},
     {backgroundColor: '#ccc', offset:0},
@@ -33,45 +34,49 @@ contenedor.addEventListener('click', (e)=>{
             // e.target.classList.add('');
             e.target.classList.add('activa');
             e.target.classList.add('tocada');
-            e.target.classList.toggle('invisible');
+            e.target.classList.remove('invisible');
             contador++; 
             primeraCarta = e.target.firstElementChild.classList[2];
-        }else{
+        }else if(contador < 2){
             // Si se ha seleccionado una segunda casilla vamos a hacer que se quiten despues de cierto tiempo, 
             // siempre y cuando contengan las casillas la clase activa
             
             contador++; 
-            e.target.classList.toggle('invisible'); 
+            e.target.classList.remove('invisible'); 
             e.target.classList.add('activa');
             let segundaCarta = e.target.firstElementChild.classList[2];
         
-        if(primeraCarta == segundaCarta){
-        
-            for(let k = 0; k < animales.length; k++){
+            if(primeraCarta == segundaCarta ){
+            
+                for(let k = 0; k < animales.length; k++){
 
-                if(animales[k].firstElementChild.classList[2] == primeraCarta){
-                    
-                    animales[k].classList.add('completa');
-                    animales[k].classList.remove('activa');
-                    animales[k].classList.remove('tocada');
-                    animales[k].animate(keyframeCorrecto, 3000);
-                    animales[k].classList.add('correcta');
-                    
+                    if(animales[k].firstElementChild.classList[2] == primeraCarta && !e.target.classList.contains('completa')){
+                        animales[k].classList.add('completa');
+                        animales[k].animate(keyframeCorrecto, 3000);
+                        e.target.animate(keyframeCorrecto, 3000);
+                        
+                        let tiempo = setInterval(()=>{
+                            animales[k].classList.remove('activa');
+                            animales[k].classList.remove('tocada');
+                            animales[k].classList.add('correcta');
+                            e.target.classList.add('completa');
+                            e.target.classList.remove('activa');
+                            e.target.classList.add('correcta');
+                            contador = 0;
+                            clearInterval(tiempo)
+
+                        },3000)
+                        
+                    }
                 }
             }
-            e.target.classList.add('completa');
-            e.target.classList.remove('activa');
-            e.target.animate(keyframeCorrecto, 3000);
-            e.target.classList.add('correcta');
-            contador = 0;
-        }
         
-        if(!e.target.classList.contains('completa')){
-            for(let w = 0; w < animales.length; w++){
-                if(animales[w].classList.contains('tocada')){
-                    animales[w].animate(keyframeIncorrecto, 3000);
-                    e.target.animate(keyframeIncorrecto, 3000);
-                    let tiempo = setInterval(()=>{
+            if(!e.target.classList.contains('completa')){
+                for(let w = 0; w < animales.length; w++){
+                    if(animales[w].classList.contains('tocada')){
+                        animales[w].animate(keyframeIncorrecto, 3000);
+                        e.target.animate(keyframeIncorrecto, 3000);
+                        let tiempo = setInterval(()=>{
                         animales[w].classList.add('invisible');
                         animales[w].classList.remove('activa');
                         animales[w].classList.remove('tocada');
@@ -145,5 +150,3 @@ function partida(){
     }
     
 }
-
-// partida(puntosJugador1, puntosJugador1)
