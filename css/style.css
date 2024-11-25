@@ -2,9 +2,13 @@
     margin: 0 auto;
 }
 
+body{
+    background-color: #6F256F;
+    color: white;
+}
 h1{
     text-align: center;
-    background-color: rgb(88, 201, 158);
+    background-color: #271E27;
     height: 100px;
     padding-top:4%;
 }
@@ -15,6 +19,7 @@ h1{
 }
 
 #contenedor{
+    background-color: #381E38;
     margin-top: 30px;
     border: 2px solid #ccc;
     display: grid;
@@ -39,6 +44,10 @@ h1{
     align-items: center;
     border-radius: 15px;
     cursor: pointer;
+}
+
+.carta:hover{
+    background-color: #9d9d9d;
 }
 
 .animal{
