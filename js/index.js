@@ -5,6 +5,14 @@ const puntosJugador2= document.getElementById("contador2");
 const reinicio = document.getElementById('reiniciar');
 const comentario = document.getElementById('comentario');
 const h2 = document.getElementById('ganador');
+const form = document.getElementById('formulario');
+const nameJugador1 = document.getElementById('jugador1');
+const nameJugador2 = document.getElementById('jugador2');
+const main = document.getElementById('main');
+
+
+let name1; 
+let name2;
 
 let contador = 0;
 let primeraCarta;
@@ -12,6 +20,7 @@ let puntuacionJugador1 = 0;
 let puntuacionJugador2 = 0;
 let ronda = 0;
 let turnoJugador1 = true;
+let manejadorFlechas = 0;
 
 const keyframeCorrecto = [
     {borderRadius: '15px'},
@@ -29,38 +38,117 @@ const keyframeIncorrecto = [
     {backgroundColor: 'red'},
     {borderRadius: '15px'}
 ]
+form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+
+    name1 = e.target[0].value;
+    name2 = e.target[1].value;
+    
+    nameJugador1.textContent = name1 + ': ';
+    nameJugador1.appendChild(puntosJugador1);
+
+    nameJugador2.textContent = name2 + ': ';
+    nameJugador2.appendChild(puntosJugador2);
+
+    render();
+    main.style.display = 'block';
+    form.style.display = 'none';    
+});
+
 contenedor.addEventListener('click', (e)=>{
-    // aqui se comprueba que se selecciona la casilla
-    if(e.target.classList.contains('animal') && contador < 2){
+    if(e.target.classList.contains('fa-solid')){
+        manejador(e.target.parentNode);
+    }else{
+        manejador(e.target);
+    }
+});
+
+reinicio.addEventListener('click', (e)=>{
+    render();
+    partida();
+});
+
+window.addEventListener('keydown', (e)=>{
+    if(e.key == 'r'){
+        render();
+    }
+    
+
+    if(e.key == 'ArrowUp'){
+        
+        animales[manejadorFlechas].parentNode.classList.remove('seleccionado')
+
+        if(manejadorFlechas == 0){
+            manejadorFlechas += 8
+        }else{
+            manejadorFlechas -= 4
+        }
+
+        animales[manejadorFlechas].parentNode.classList.add('seleccionado')
+        console.log('arriba'+manejadorFlechas);
+    }else if(e.key == 'ArrowDown'){
+        
+        if(manejadorFlechas > 3){
+            animales[manejadorFlechas-4].parentNode.classList.remove('seleccionado')
+        }else{
+            animales[manejadorFlechas].parentNode.classList.remove('seleccionado')
+        }
+
+        if(manejadorFlechas == 0){
+            
+            animales[manejadorFlechas].parentNode.classList.add('seleccionado')
+            animales[manejadorFlechas+8].parentNode.classList.remove('seleccionado')
+
+            manejadorFlechas += 4  
+
+        }else if(manejadorFlechas == 8){
+            animales[manejadorFlechas].parentNode.classList.add('seleccionado')
+            manejadorFlechas -= 8;
+        }else{
+            animales[manejadorFlechas].parentNode.classList.add('seleccionado')
+            manejadorFlechas += 4       
+        }
+
+        console.log('abajo'+manejadorFlechas);
+    }else if(e.key == 'ArrowLeft'){
+        console.log(e.key);
+    }else if(e.key == 'ArrowRight'){
+        console.log(e.key);
+    }
+});
+
+function manejador(e){
+    
+    if(e.classList.contains('animal') && contador < 2){
         // Comprobamos que no se hayan seleccionado mas de dos casillas, si no es asi hacemos lo siguiente:
         
         if(contador < 1){
             // añadir animacion al icono para que aparezca y desaparezca al pulsar sobre el (hacer en css una clase)
 
-            e.target.classList.add('activa');
-            e.target.classList.add('tocada');
-            e.target.classList.remove('invisible');
+            e.classList.add('activa');
+            e.classList.add('tocada');
+            e.classList.remove('invisible');
             contador++; 
-            primeraCarta = e.target.firstElementChild.classList[2];
+            primeraCarta = e.firstElementChild.classList[2];
             
         }else{
             // Si se ha seleccionado una segunda casilla vamos a hacer que se quiten despues de cierto tiempo, 
             // siempre y cuando contengan las casillas la clase activa
-            if(!e.target.classList.contains('activa')){
+            if(!e.classList.contains('activa')){
 
-                e.target.classList.remove('invisible'); 
-                e.target.classList.add('activa');
-                let segundaCarta = e.target.firstElementChild.classList[2];
+                e.classList.remove('invisible'); 
+                e.classList.add('activa');
+                let segundaCarta = e.firstElementChild.classList[2];
                 contador++; 
                 
                 if(primeraCarta == segundaCarta ){
                     
                     for(let k = 0; k < animales.length; k++){
                         
-                        if(animales[k].firstElementChild.classList[2] == primeraCarta && !e.target.classList.contains('completa')){
+                        if(animales[k].firstElementChild.classList[2] == primeraCarta && !e.classList.contains('completa')){
                             
                             animales[k].animate(keyframeCorrecto, 3000);
-                            e.target.animate(keyframeCorrecto, 3000);
+                            e.animate(keyframeCorrecto, 3000);
                             console.log(contador);
                             
                             let tiempo = setInterval(()=>{
@@ -68,9 +156,9 @@ contenedor.addEventListener('click', (e)=>{
                                 animales[k].classList.remove('activa');
                                 animales[k].classList.remove('tocada');
                                 animales[k].classList.add('correcta');
-                                e.target.classList.add('completa');
-                                e.target.classList.remove('activa');
-                                e.target.classList.add('correcta');
+                                e.classList.add('completa');
+                                e.classList.remove('activa');
+                                e.classList.add('correcta');
                                 contador = 0;
                                 clearInterval(tiempo)
                                 partida();
@@ -79,44 +167,32 @@ contenedor.addEventListener('click', (e)=>{
                             
                         }
                     }
-    
+
                     jugadorTurno(true);
-                }else if(!e.target.classList.contains('completa') ){
+                }else if(!e.classList.contains('completa') ){
                     for(let w = 0; w < animales.length; w++){
                         if(animales[w].classList.contains('tocada')){
                             animales[w].animate(keyframeIncorrecto, 3000);
-                            e.target.animate(keyframeIncorrecto, 3000);
+                            e.animate(keyframeIncorrecto, 3000);
                             
                             let tiempo = setInterval(()=>{
                                 animales[w].classList.add('invisible');
                                 animales[w].classList.remove('activa');
                                 animales[w].classList.remove('tocada');
-                                e.target.classList.add('invisible');
-                                e.target.classList.remove('activa');
+                                e.classList.add('invisible');
+                                e.classList.remove('activa');
                                 contador = 0;
                                 jugadorTurno(false);
                                 clearInterval(tiempo);
                             },3000);
                         }
-                        
                     }
                 }            
             }
-            
         }
     }
-})
+}
 
-reinicio.addEventListener('click', (e)=>{
-    render()
-    partida();
-})
-
-window.addEventListener('keypress', (e)=>{
-    if(e.key == 'r'){
-        render()
-    }
-})
 function desordenar(animales){
     for(let i = animales.length-1; i > 0; i--){
         let j = Math.floor(Math.random() * (i+1));
@@ -126,14 +202,14 @@ function desordenar(animales){
 }
 
 function render(){
-
     let numeroAleatorio = Math.floor(Math.random() * 10);
+    console.log('numero render:'+numeroAleatorio);
     if(numeroAleatorio > 5){
         turnoJugador1 = true;
-        comentario.innerHTML = `Empieza jugando el Jugador 1`;
+        comentario.innerHTML = `Empieza jugando el ${name1}`;
     }else{
         turnoJugador1 = false;
-        comentario.innerHTML = `Empieza jugando el Jugador 2`;
+        comentario.innerHTML = `Empieza jugando el ${name2}`;
     }
     let animal = [];
     
@@ -170,9 +246,9 @@ function partida(){
     if(completo){
         
         if(puntuacionJugador1 > puntuacionJugador2){
-            h2.innerHTML = 'HA GANADO EL JUGADOR 1'
+            h2.innerHTML = `HA GANADO EL ${name1}`
         }else{
-            h2.innerHTML = 'HA GANADO EL JUGADOR 2'
+            h2.innerHTML = `HA GANADO EL ${name2}`
         }
         
     }
@@ -195,11 +271,10 @@ function jugadorTurno(acierto){
         
         if(turnoJugador1){
             turnoJugador1 = false;
-            comentario.innerHTML = 'Es el turno del jugador 2'
+            comentario.innerHTML = `Es el turno del ${name2}`
         }else{
             turnoJugador1 = true;
-            comentario.innerHTML = 'Es el turno del jugador 1'
+            comentario.innerHTML = `Es el turno del ${name1}`
         }
     }
 }
-render();
