@@ -111,9 +111,32 @@ window.addEventListener('keydown', (e)=>{
 
         console.log('abajo'+manejadorFlechas);
     }else if(e.key == 'ArrowLeft'){
-        console.log(e.key);
+        animales[manejadorFlechas].parentNode.classList.remove('seleccionado');
+        if(manejadorFlechas >= 0){
+            manejadorFlechas--;
+            console.log(manejadorFlechas);
+        }
+
+        if(manejadorFlechas == 0){
+            manejadorFlechas += 12;
+        }
+        animales[manejadorFlechas].parentNode.classList.add('seleccionado');
     }else if(e.key == 'ArrowRight'){
-        console.log(e.key);
+
+        animales[manejadorFlechas].parentNode.classList.remove('seleccionado');
+        
+        if(manejadorFlechas >= 0){
+            
+            manejadorFlechas++;
+            console.log(manejadorFlechas);
+        }
+         if(manejadorFlechas == 12){
+            manejadorFlechas -= 11;
+            manejadorFlechas = 0;
+            
+        }
+        animales[manejadorFlechas].parentNode.classList.add("seleccionado");
+
     }
 });
 
