@@ -1,8 +1,10 @@
+// Constantes de botones y listeners
 const contenedor = document.getElementById('contenedor');
 const animales = document.querySelectorAll(".animal");
 const puntosJugador1 = document.getElementById("contador1");
 const puntosJugador2= document.getElementById("contador2");
 const reinicio = document.getElementById('reiniciar');
+const nuevaPartida = document.getElementById('nuevaPartida');
 const comentario = document.getElementById('comentario');
 const h2 = document.getElementById('ganador');
 const form = document.getElementById('formulario');
@@ -10,7 +12,7 @@ const nameJugador1 = document.getElementById('jugador1');
 const nameJugador2 = document.getElementById('jugador2');
 const main = document.getElementById('main');
 
-
+// constantes que se manejan en las diferentes funciones 
 let name1; 
 let name2;
 
@@ -40,9 +42,8 @@ const keyframeIncorrecto = [
 ]
 form.addEventListener('submit', (e)=>{
     e.preventDefault();
-
-    name1 = e.target[0].value;
-    name2 = e.target[1].value;
+    name1 = e.target[1].value;
+    name2 = e.target[3].value;
     
     nameJugador1.textContent = name1 + ': ';
     nameJugador1.appendChild(puntosJugador1);
@@ -63,11 +64,15 @@ contenedor.addEventListener('click', (e)=>{
     }
 });
 
-reinicio.addEventListener('click', (e)=>{
+reinicio.addEventListener('click', ()=>{
     render();
     partida();
 });
 
+nuevaPartida.addEventListener('click', ()=>{
+    form.style.display = 'block';
+    main.style.display = 'none';
+})
 window.addEventListener('keydown', (e)=>{
     if(e.key == 'r'){
         render();
@@ -85,7 +90,6 @@ window.addEventListener('keydown', (e)=>{
         }
 
         animales[manejadorFlechas].parentNode.classList.add('seleccionado')
-        console.log('arriba'+manejadorFlechas);
     }else if(e.key == 'ArrowDown'){
         
         if(manejadorFlechas > 3){
@@ -109,12 +113,10 @@ window.addEventListener('keydown', (e)=>{
             manejadorFlechas += 4       
         }
 
-        console.log('abajo'+manejadorFlechas);
     }else if(e.key == 'ArrowLeft'){
         animales[manejadorFlechas].parentNode.classList.remove('seleccionado');
         if(manejadorFlechas >= 0){
             manejadorFlechas--;
-            console.log(manejadorFlechas);
         }
 
         if(manejadorFlechas == 0){
@@ -128,7 +130,6 @@ window.addEventListener('keydown', (e)=>{
         if(manejadorFlechas >= 0){
             
             manejadorFlechas++;
-            console.log(manejadorFlechas);
         }
          if(manejadorFlechas == 12){
             manejadorFlechas -= 11;
@@ -172,7 +173,6 @@ function manejador(e){
                             
                             animales[k].animate(keyframeCorrecto, 3000);
                             e.animate(keyframeCorrecto, 3000);
-                            console.log(contador);
                             
                             let tiempo = setInterval(()=>{
                                 animales[k].classList.add('completa');
@@ -226,7 +226,6 @@ function desordenar(animales){
 
 function render(){
     let numeroAleatorio = Math.floor(Math.random() * 10);
-    console.log('numero render:'+numeroAleatorio);
     if(numeroAleatorio > 5){
         turnoJugador1 = true;
         comentario.innerHTML = `Empieza jugando el ${name1}`;
@@ -252,6 +251,8 @@ function render(){
 
     puntuacionJugador1 = 0;
     puntuacionJugador2 = 0;
+    contador = 0;
+    primeraCarta;
     puntosJugador1.innerHTML = puntuacionJugador1;
     puntosJugador2.innerHTML = puntuacionJugador2;
     h2.innerHTML = ' ';
@@ -269,9 +270,9 @@ function partida(){
     if(completo){
         
         if(puntuacionJugador1 > puntuacionJugador2){
-            h2.innerHTML = `HA GANADO EL ${name1}`
+            h2.innerHTML = `HA GANADO ${name1}`
         }else{
-            h2.innerHTML = `HA GANADO EL ${name2}`
+            h2.innerHTML = `HA GANADO ${name2}`
         }
         
     }

@@ -12,12 +12,17 @@
     <h1>Juego de Memoria</h1>
     
     <form id="formulario">
-        <label for="nameJugador1">Introduzca el nombre del Jugador 1</label>
-        <input type="text" id="nameJugador1">
-        <label for="nameJugador1">Introduzca el nombre del Jugador 1</label>
-        <input type="text" id="nameJugador1">
-        <input type="submit" >
+        <fieldset>
+            <label for="nameJugador1">Introduzca el nombre del Jugador 1</label>
+            <input type="text" id="nameJugador1" placeholder="Jugador 1" required>
+        </fieldset>
+        <fieldset>
+            <label for="nameJugador2">Introduzca el nombre del Jugador 2</label>
+            <input type="text" id="nameJugador2" placeholder="Jugador 2" required>
+        </fieldset>
+        <input type="submit" value="Comenzar">
     </form>
+    
     <div id="main">
 
         <div class="jugadores">
@@ -26,7 +31,10 @@
             <h2 id="jugador2"> <span id="contador2"></span></h2>
             
         </div>
-        <div id="reiniciar">Reiniciar Partida</div>
+        <div id="botones">
+            <div id="nuevaPartida" class="botones">Nueva partida</div>
+            <div id="reiniciar" class="botones">Reiniciar Partida</div>
+        </div>
         <p id="comentario"></p>
         <h2 id="ganador"></h2>
         <div id="contenedor">

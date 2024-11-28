@@ -5,12 +5,43 @@
 body{
     background-color: #6F256F;
     color: white;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+form{
+    width: 50%;
+    max-width: 500px;
+    min-width: 450px;
+    font-size: 1em;
+    
+    & fieldset{
+        border: none;
+        margin-top: 15px;
+        
+        & input{
+            border-radius: 25px;
+            border: none;
+            padding: 3px;
+            padding-left: 10px;
+        }
+        & input:focus, input:hover{
+            background-color: #cfcfcf;
+        }
+    }
+    & input[type=submit]{
+        border-radius: 15px;
+        border: none;
+        padding: 5px;
+        margin-top: 15px;
+        margin-left: 10px;
+    }
+    
 }
 h1{
-    text-align: center;
-    background-color: #271E27;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4d264d;
     height: 100px;
-    padding-top:4%;
 }
 
 .jugadores{
@@ -70,17 +101,36 @@ h1{
 }
 #comentario{
     text-align: center;
+    margin-top: 15px;
 }
-#reiniciar{
-    background-color: aqua;
-    width: 150px;
+#botones{
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    min-width: 400px;
+}
+.botones{
+    background-color: rgb(119, 34, 142);
+    width: 30%;
     height: 30px;
     padding-top: 15px;
     text-align: center;
     border-radius: 15px;
     cursor: pointer;
+    color: rgba(247, 247, 247, 0.797);
+    box-shadow: 1px 2px 8px 1px black;
 }
 
+.botones:hover{
+    color: white;
+}
+#ganador{
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 25px;
+}
 .fa-solid{
     font-size: 35px;
 }
