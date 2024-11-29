@@ -28,6 +28,7 @@ form{
         }
     }
     & input[type=submit]{
+        width: 150px;
         border-radius: 15px;
         border: none;
         padding: 5px;
@@ -125,6 +126,7 @@ h1{
 
 .botones:hover{
     color: white;
+    box-shadow: 1px 1px 10px 1px blueviolet;
 }
 #ganador{
     margin: 0 auto;
@@ -137,6 +139,18 @@ h1{
 .correcta{
     background-color: green;
     border-radius: 15px;
+}
+#aside{
+    display: none;
+    position: absolute;
+    top: 200px;
+    left: 25px;
+    border: solid 1px rgba(130, 73, 185, 0.634);
+    padding: 20px;
+    box-shadow: 1px 1px 10px 1px black;
+    & h2{
+        margin-bottom: 5px;
+    }
 }
 @media screen and (min-width: 1900px) and (max-width: 2000px){
     

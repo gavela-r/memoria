@@ -11,6 +11,7 @@ const form = document.getElementById('formulario');
 const nameJugador1 = document.getElementById('jugador1');
 const nameJugador2 = document.getElementById('jugador2');
 const main = document.getElementById('main');
+const aside = document.getElementById('aside');
 
 // constantes que se manejan en las diferentes funciones 
 let name1; 
@@ -23,7 +24,7 @@ let puntuacionJugador2 = 0;
 let ronda = 0;
 let turnoJugador1 = true;
 let manejadorFlechas = 0;
-
+// animaciones utilizadas con js
 const keyframeCorrecto = [
     {borderRadius: '15px'},
     {backgroundColor: '#ccc', offset:0},
@@ -40,6 +41,7 @@ const keyframeIncorrecto = [
     {backgroundColor: 'red'},
     {borderRadius: '15px'}
 ]
+
 form.addEventListener('submit', (e)=>{
     e.preventDefault();
     name1 = e.target[1].value;
@@ -52,7 +54,9 @@ form.addEventListener('submit', (e)=>{
     nameJugador2.appendChild(puntosJugador2);
 
     render();
+
     main.style.display = 'block';
+    aside.style.display = 'block';
     form.style.display = 'none';    
 });
 
@@ -70,76 +74,23 @@ reinicio.addEventListener('click', ()=>{
 });
 
 nuevaPartida.addEventListener('click', ()=>{
-    form.style.display = 'block';
-    main.style.display = 'none';
+    partidaNueva();
 })
+
 window.addEventListener('keydown', (e)=>{
     if(e.key == 'r'){
         render();
+    }else if(e.key == 'n'){
+        partidaNueva();
     }
     
-
-    if(e.key == 'ArrowUp'){
-        
-        animales[manejadorFlechas].parentNode.classList.remove('seleccionado')
-
-        if(manejadorFlechas == 0){
-            manejadorFlechas += 8
-        }else{
-            manejadorFlechas -= 4
-        }
-
-        animales[manejadorFlechas].parentNode.classList.add('seleccionado')
-    }else if(e.key == 'ArrowDown'){
-        
-        if(manejadorFlechas > 3){
-            animales[manejadorFlechas-4].parentNode.classList.remove('seleccionado')
-        }else{
-            animales[manejadorFlechas].parentNode.classList.remove('seleccionado')
-        }
-
-        if(manejadorFlechas == 0){
-            
-            animales[manejadorFlechas].parentNode.classList.add('seleccionado')
-            animales[manejadorFlechas+8].parentNode.classList.remove('seleccionado')
-
-            manejadorFlechas += 4  
-
-        }else if(manejadorFlechas == 8){
-            animales[manejadorFlechas].parentNode.classList.add('seleccionado')
-            manejadorFlechas -= 8;
-        }else{
-            animales[manejadorFlechas].parentNode.classList.add('seleccionado')
-            manejadorFlechas += 4       
-        }
-
-    }else if(e.key == 'ArrowLeft'){
-        animales[manejadorFlechas].parentNode.classList.remove('seleccionado');
-        if(manejadorFlechas >= 0){
-            manejadorFlechas--;
-        }
-
-        if(manejadorFlechas == 0){
-            manejadorFlechas += 12;
-        }
-        animales[manejadorFlechas].parentNode.classList.add('seleccionado');
-    }else if(e.key == 'ArrowRight'){
-
-        animales[manejadorFlechas].parentNode.classList.remove('seleccionado');
-        
-        if(manejadorFlechas >= 0){
-            
-            manejadorFlechas++;
-        }
-         if(manejadorFlechas == 12){
-            manejadorFlechas -= 11;
-            manejadorFlechas = 0;
-            
-        }
-        animales[manejadorFlechas].parentNode.classList.add("seleccionado");
-
-    }
 });
+
+function partidaNueva(){
+    form.style.display = 'block';
+    aside.style.display = 'none';
+    main.style.display = 'none';
+}
 
 function manejador(e){
     
@@ -183,18 +134,17 @@ function manejador(e){
                                 e.classList.remove('activa');
                                 e.classList.add('correcta');
                                 contador = 0;
-                                clearInterval(tiempo)
+                                clearInterval(tiempo);
                                 partida();
                             },3000);
-                            
-                            
                         }
                     }
-
                     jugadorTurno(true);
+
                 }else if(!e.classList.contains('completa') ){
                     for(let w = 0; w < animales.length; w++){
                         if(animales[w].classList.contains('tocada')){
+
                             animales[w].animate(keyframeIncorrecto, 3000);
                             e.animate(keyframeIncorrecto, 3000);
                             
@@ -219,14 +169,14 @@ function manejador(e){
 function desordenar(animales){
     for(let i = animales.length-1; i > 0; i--){
         let j = Math.floor(Math.random() * (i+1));
-        [animales[i], animales[j]] = [animales[j], animales[i]]
+        [animales[i], animales[j]] = [animales[j], animales[i]];
     }
     
 }
 
 function render(){
     let numeroAleatorio = Math.floor(Math.random() * 10);
-    if(numeroAleatorio > 5){
+    if(numeroAleatorio >= 5){
         turnoJugador1 = true;
         comentario.innerHTML = `Empieza jugando el ${name1}`;
     }else{
@@ -263,16 +213,16 @@ function partida(){
     
     for(let i = 0; i < animales.length; i++){
         if(!animales[i].classList.contains('completa')){
-            completo = false
+            completo = false;
         }
     }
 
     if(completo){
         
         if(puntuacionJugador1 > puntuacionJugador2){
-            h2.innerHTML = `HA GANADO ${name1}`
+            h2.innerHTML = `HA GANADO ${name1}`;
         }else{
-            h2.innerHTML = `HA GANADO ${name2}`
+            h2.innerHTML = `HA GANADO ${name2}`;
         }
         
     }
@@ -295,10 +245,10 @@ function jugadorTurno(acierto){
         
         if(turnoJugador1){
             turnoJugador1 = false;
-            comentario.innerHTML = `Es el turno del ${name2}`
+            comentario.innerHTML = `Es el turno del ${name2}`;
         }else{
             turnoJugador1 = true;
-            comentario.innerHTML = `Es el turno del ${name1}`
+            comentario.innerHTML = `Es el turno del ${name1}`;
         }
     }
 }
