@@ -136,7 +136,7 @@ function manejador(e){
                                 contador = 0;
                                 clearInterval(tiempo);
                                 partida();
-                            },3000);
+                            },2000);
                         }
                     }
                     jugadorTurno(true);
@@ -145,8 +145,8 @@ function manejador(e){
                     for(let w = 0; w < animales.length; w++){
                         if(animales[w].classList.contains('tocada')){
 
-                            animales[w].animate(keyframeIncorrecto, 3000);
-                            e.animate(keyframeIncorrecto, 3000);
+                            animales[w].animate(keyframeIncorrecto, 2000);
+                            e.animate(keyframeIncorrecto, 2000);
                             
                             let tiempo = setInterval(()=>{
                                 animales[w].classList.add('invisible');
@@ -157,7 +157,7 @@ function manejador(e){
                                 contador = 0;
                                 jugadorTurno(false);
                                 clearInterval(tiempo);
-                            },3000);
+                            },2000);
                         }
                     }
                 }            
